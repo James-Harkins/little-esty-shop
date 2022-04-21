@@ -3,7 +3,7 @@ require 'rake'
 Rails.application.load_tasks
 
 RSpec.describe "Admin Merchants Index" do
-  it 'displays a header showing the Admin Merchants Index', :vcr do
+  it 'displays a header showing the Admin Merchants Index' do
     visit '/admin/merchants'
 
     within(".header") do
@@ -11,7 +11,7 @@ RSpec.describe "Admin Merchants Index" do
     end
   end
 
-  it 'displays all of the merchants', :vcr do
+  it 'displays all of the merchants' do
     merchant_1 = Merchant.create!(name: "Mollys", status: 1)
     merchant_2 = Merchant.create!(name: "Berrys", status: 1)
     merchant_3 = Merchant.create!(name: "Jimmys", status: 0)
@@ -31,7 +31,7 @@ RSpec.describe "Admin Merchants Index" do
     end
   end
 
-  it 'contains a button to enable or disable', :vcr do
+  it 'contains a button to enable or disable' do
     merchant_1 = Merchant.create!(name: "Mollys", status: 1)
     merchant_2 = Merchant.create!(name: "Berrys", status: 1)
     merchant_3 = Merchant.create!(name: "Jimmys", status: 0)
@@ -51,7 +51,7 @@ RSpec.describe "Admin Merchants Index" do
     end
   end
 
-  it 'updates a merchant between enable/disable', :vcr do
+  it 'updates a merchant between enable/disable' do
     merchant_1 = Merchant.create!(name: "Mollys", status: 1)
     merchant_2 = Merchant.create!(name: "Jerrys", status: 1)
     merchant_3 = Merchant.create!(name: "Berrys", status: 0)
@@ -65,7 +65,7 @@ RSpec.describe "Admin Merchants Index" do
     expect(page).to have_button("Disable")
   end
 
-  it 'shows top five merchants', :vcr do
+  it 'shows top five merchants' do
     merchant1 = Merchant.create(name: "Merchant 1")
     merchant2 = Merchant.create(name: "Merchant 2")
     merchant3 = Merchant.create(name: "Merchant 3")
@@ -136,7 +136,7 @@ RSpec.describe "Admin Merchants Index" do
     end
   end
 
-  it 'merchant name is a link to that merchants show page', :vcr do
+  it 'merchant name is a link to that merchants show page' do
     merchant1 = Merchant.create(name: "Merchant 1")
     merchant2 = Merchant.create(name: "Merchant 2")
     merchant3 = Merchant.create(name: "Merchant 3")
@@ -205,7 +205,7 @@ RSpec.describe "Admin Merchants Index" do
     expect(page).to have_current_path("/admin/merchants/#{merchant1.id}")
   end
 
-  describe 'merchant best day displayed next to top merchants', :vcr do
+  describe 'merchant best day displayed next to top merchants' do
     it 'displays the top date for a top merchant' do
       date_1 = Time.parse("2016-07-25")
       date_2 = Time.parse("2022-04-05")

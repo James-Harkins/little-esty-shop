@@ -4,7 +4,7 @@ RSpec.describe 'merchant invoices index page' do
   describe 'as a user' do
     describe 'when i visit my merchants invoices index page' do
       it 'i see all of the invoices that include at least one of my merchants
-          items, as well as its id, which is a link to its show page', :vcr do
+          items, as well as its id, which is a link to its show page' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant items index page' do
   describe 'as a merchant' do
     describe 'when i visit my merchant items index page' do
-      it 'i see a list of the names of all of my items and i do not see items for any other merchant', :vcr do
+      it 'i see a list of the names of all of my items and i do not see items for any other merchant' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -23,7 +23,7 @@ RSpec.describe 'merchant items index page' do
         expect(page).not_to have_content(item_3.name)
       end
 
-      it 'next to each item name, i see a button to disable or enable that item', :vcr do
+      it 'next to each item name, i see a button to disable or enable that item' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -52,7 +52,7 @@ RSpec.describe 'merchant items index page' do
       end
 
       it 'when i click the disable/enable button, i am redirected back to the
-          items index and i see that that items status has changed', :vcr do
+          items index and i see that that items status has changed' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -92,7 +92,7 @@ RSpec.describe 'merchant items index page' do
         end
       end
 
-      it 'i see two sections: one for Enabled Items and one for Disabled Items', :vcr do
+      it 'i see two sections: one for Enabled Items and one for Disabled Items' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -150,7 +150,7 @@ RSpec.describe 'merchant items index page' do
       it 'i see a link to create a new item, which, when clicked, takes me to
           a form that allows me to add information, and when i click submit, i
           am taken back to the index page and i see the new item listed in the
-          disabled section', :vcr do
+          disabled section' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -187,7 +187,7 @@ RSpec.describe 'merchant items index page' do
 
       it 'i see the names of the top 5 most popular items by total revenue,
           which are also links to those items show pages, and i see those
-          items total revenue generated', :vcr do
+          items total revenue generated' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -275,7 +275,7 @@ RSpec.describe 'merchant items index page' do
         expect(current_path).to eq("/merchants/#{merchant_1.id}/items/#{item_3.id}")
       end
 
-      it 'next to each top item, i see the date when most units were sold', :vcr do
+      it 'next to each top item, i see the date when most units were sold' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",

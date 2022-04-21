@@ -6,7 +6,7 @@ RSpec.describe "Admin Merchants Show" do
     @merchant_2 = Merchant.create!(name: "Berrys")
   end
 
-  it 'has a link for each merchant show page', :vcr do
+  it 'has a link for each merchant show page' do
     visit '/admin/merchants'
 
     expect(page).to have_link(@merchant_1.name)
@@ -16,7 +16,7 @@ RSpec.describe "Admin Merchants Show" do
     expect(current_path).to eq("/admin/merchants/#{@merchant_1.id}")
   end
 
-  it 'displays the admin merchant show page', :vcr do
+  it 'displays the admin merchant show page' do
     visit "/admin/merchants/#{@merchant_1.id}"
 
     within(".header") do
@@ -30,7 +30,7 @@ RSpec.describe "Admin Merchants Show" do
     end
   end
 
-  it 'has a link to update the merchant information', :vcr do
+  it 'has a link to update the merchant information' do
     visit "/admin/merchants/#{@merchant_1.id}"
 
     within("#update") do

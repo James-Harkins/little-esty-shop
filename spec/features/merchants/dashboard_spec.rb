@@ -1,27 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe 'merchant dashboard page' do
-   it 'shows the merchants name', :vcr do
+   it 'shows the merchants name' do
         merchant_1 = Merchant.create!(name: "Geddy's Skydiving Emporium")
         visit "/merchants/#{merchant_1.id}/dashboard"
         expect(page).to have_content(merchant_1.name)
   end
 
-  it 'links to merchant items', :vcr do
+  it 'links to merchant items' do
     merchant_1 = Merchant.create!(name: "Geddy's Skydiving Emporium")
     visit "/merchants/#{merchant_1.id}/dashboard"
     click_link("This Merchant's Items")
     expect(page).to have_current_path("/merchants/#{merchant_1.id}/items")
   end
 
-  it 'links to merchant invoices', :vcr do
+  it 'links to merchant invoices' do
     merchant_1 = Merchant.create!(name: "Geddy's Skydiving Emporium")
     visit "/merchants/#{merchant_1.id}/dashboard"
     click_link("This Merchant's Invoices")
     expect(page).to have_current_path("/merchants/#{merchant_1.id}/invoices")
   end
 
-  it 'shows the top five customers', :vcr do
+  it 'shows the top five customers' do
     merchant = Merchant.create(name: "Braum's")
     item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
@@ -88,7 +88,7 @@ RSpec.describe 'merchant dashboard page' do
     expect(page).to have_content("Flipper McDaniel")
   end
 
-  it 'shows item ready to ship', :vcr do
+  it 'shows item ready to ship' do
     merchant = Merchant.create(name: "Braum's")
     item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
@@ -118,7 +118,7 @@ RSpec.describe 'merchant dashboard page' do
       expect(page).to have_content('Beyblade')
     end
   end
-    it 'shows the top five customers', :vcr do
+    it 'shows the top five customers' do
       merchant = Merchant.create(name: "Braum's")
       item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
@@ -185,7 +185,7 @@ RSpec.describe 'merchant dashboard page' do
       expect(page).to have_content("Flipper McDaniel")
     end
 
-    it 'shows item ready to ships invoice id as a link to that page', :vcr do
+    it 'shows item ready to ships invoice id as a link to that page' do
       merchant = Merchant.create(name: "Braum's")
       item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
@@ -216,7 +216,7 @@ RSpec.describe 'merchant dashboard page' do
       expect(page).to have_current_path("/merchants/#{merchant.id}/invoices/#{invoice_item_1.invoice_id}")
   end
 
-    it 'shows item ready to ship from oldest to newest', :vcr do
+    it 'shows item ready to ship from oldest to newest' do
       merchant = Merchant.create(name: "Braum's")
       item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
       item2 = merchant.items.create(name: "Butter", description: "Let it rip!", unit_price: 1000)

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the merchant invoice show page' do
-   it 'shows all the attributes for an invoice', :vcr do
+   it 'shows all the attributes for an invoice' do
 
         merchant = Merchant.create(name: "Braum's")
         item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
@@ -16,7 +16,7 @@ RSpec.describe 'the merchant invoice show page' do
   end
 
 
-   it 'shows the quatity and price of item sold', :vcr do
+   it 'shows the quatity and price of item sold' do
         merchant = Merchant.create(name: "Braum's")
         item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
         bob = Customer.create!(first_name: "Bob", last_name: "Benson")
@@ -28,7 +28,7 @@ RSpec.describe 'the merchant invoice show page' do
         expect(page).to have_content("1000")
   end
 
-   it 'the quatity and price of item sold', :vcr do
+   it 'the quatity and price of item sold' do
         merchant = Merchant.create(name: "Braum's")
         merchant2 = Merchant.create(name: "Target")
 

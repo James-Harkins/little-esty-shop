@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Invoices Index" do
-  it 'displays a list of all Invoice IDs in the system', :vcr do
+  it 'displays a list of all Invoice IDs in the system' do
     bob = Customer.create!(first_name: "Bob", last_name: "Benson")
     invoice_1 = bob.invoices.create!(status: 1)
     invoice_2 = bob.invoices.create!(status: 1)

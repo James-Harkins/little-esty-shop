@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Admin Invoices Show" do
-  it 'displays invoice info relating to invoice', :vcr do
+  it 'displays invoice info relating to invoice' do
     bob = Customer.create!(first_name: "Bob", last_name: "Benson")
     invoice_1 = bob.invoices.create!(status: 1, created_at: '01 Jul 2022 01:00:00')
     invoice_2 = bob.invoices.create!(status: 1, created_at: '02 Apr 2022 01:00:00')
@@ -15,7 +15,7 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_no_content('Saturday, April 02, 2022')
   end
 
-  it 'displays all the items and item info', :vcr do
+  it 'displays all the items and item info' do
     walmart = Merchant.create!(name: "Wal-Mart")
     bob = Customer.create!(first_name: "Bob", last_name: "Benson")
     item_1 = walmart.items.create!(name: "pickle", description: "sour cucumber", unit_price: 300)
@@ -45,7 +45,7 @@ RSpec.describe "Admin Invoices Show" do
     end
   end
 
-  it 'displays the total revenue for the invoice', :vcr do
+  it 'displays the total revenue for the invoice' do
     walmart = Merchant.create!(name: "Wal-Mart")
     bob = Customer.create!(first_name: "Bob", last_name: "Benson")
     item_1 = walmart.items.create!(name: "pickle", description: "sour cucumber", unit_price: 300)
@@ -61,7 +61,7 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_content("$22.00")
   end
 
-  it 'has a select field for status that can update the status', :vcr do
+  it 'has a select field for status that can update the status' do
     walmart = Merchant.create!(name: "Wal-Mart")
     bob = Customer.create!(first_name: "Bob", last_name: "Benson")
     item_1 = walmart.items.create!(name: "pickle", description: "sour cucumber", unit_price: 300)

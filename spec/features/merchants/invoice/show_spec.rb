@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'the merchant invoice show page' do
-   it 'shows all the attributes for an invoice', :vcr do
+   it 'shows all the attributes for an invoice' do
 
         merchant = Merchant.create(name: "Braum's")
         item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
@@ -16,7 +16,7 @@ RSpec.describe 'the merchant invoice show page' do
   end
 
 
-   it 'shows the quatity and price of item sold', :vcr do
+   it 'shows the quatity and price of item sold' do
         merchant = Merchant.create(name: "Braum's")
         item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
         bob = Customer.create!(first_name: "Bob", last_name: "Benson")
@@ -28,7 +28,7 @@ RSpec.describe 'the merchant invoice show page' do
         expect(page).to have_content("1000")
   end
 
-   it 'the quatity and price of item sold', :vcr do
+   it 'the quatity and price of item sold' do
         merchant = Merchant.create(name: "Braum's")
         merchant2 = Merchant.create(name: "Target")
 
@@ -49,7 +49,7 @@ RSpec.describe 'the merchant invoice show page' do
         expect(page).to_not have_content("3499")
         expect(page).to_not have_content("Polearm")
   end
-   it 'shows total revenue', :vcr do
+   it 'shows total revenue' do
         merchant = Merchant.create(name: "Braum's")
         merchant2 = Merchant.create(name: "Target")
 
@@ -95,7 +95,7 @@ RSpec.describe 'the merchant invoice show page' do
       end
 
       it "i see that each invoice item status is a select field
-          and i see that the invoice item's current status is selected", :vcr do
+          and i see that the invoice item's current status is selected" do
 
         within "#item-#{@invoice_item_1.id}" do
           expect(page).to have_select(:status, selected: 'Pending')
@@ -110,7 +110,7 @@ RSpec.describe 'the merchant invoice show page' do
         end
       end
 
-      it "can update the item status", :vcr do
+      it "can update the item status" do
 
         within "#item-#{@invoice_item_4.id}" do
           select 'Shipped', :from => :status

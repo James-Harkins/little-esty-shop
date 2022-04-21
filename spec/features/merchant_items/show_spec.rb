@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'merchant items index page' do
   describe 'as a merchant' do
     describe 'when i visit my merchant items index page' do
-      it 'i see a list of the names of all of my items and i do not see items for any other merchant', :vcr do
+      it 'i see a list of the names of all of my items and i do not see items for any other merchant' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
