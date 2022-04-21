@@ -31,7 +31,7 @@ This is an attempt to recreate an online store using Rails and CRUD functionalit
 - Uses MVC strategy of development
 
 ## Database Schema
-![Schema](/Users/lukepascale/turing/2module/projects/little-esty-shop/app/assets/images/little_esty_shop_schema.png)
+![Screen Shot 2022-04-11 at 3 24 24 PM](https://user-images.githubusercontent.com/93609855/164555693-45221a2d-463d-4975-8acf-dfab286ca222.png)
 
 ## Contributors - Github User Names
 - Will Medders - @wmedders21
