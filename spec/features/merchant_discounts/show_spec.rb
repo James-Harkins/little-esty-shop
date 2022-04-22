@@ -24,7 +24,7 @@ RSpec.describe 'merchant_discounts index page' do
 
         click_link "Edit This Discount"
 
-        expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts/#{discount_1}/edit")
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts/#{discount_1.id}/edit")
       end
     end
   end

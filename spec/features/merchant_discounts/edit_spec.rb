@@ -9,8 +9,8 @@ RSpec.describe 'merchant_discounts edit page' do
 
         visit "/merchants/#{merchant_1.id}/discounts/#{discount_1.id}/edit"
 
-        expect(page).to have_field("Percentage", with: @discount_1.percentage)
-        expect(page).to have_field("Quantity threshold", with: @discount_1.quantity_threshold)
+        expect(page).to have_field("Percentage", with: discount_1.percentage)
+        expect(page).to have_field("Quantity threshold", with: discount_1.quantity_threshold)
       end
 
       it 'when i change all of the info and click submit, i am redirected
