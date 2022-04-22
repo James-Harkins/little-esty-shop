@@ -18,7 +18,7 @@ RSpec.describe 'merchant_discounts index page' do
         expect(page).to have_content(discount_2.percentage)
         expect(page).to have_content(discount_2.quantity_threshold)
         expect(page).not_to have_content(discount_3.percentage)
-        expect(page).not_to have_content(discount_3.quantity_threshold)
+        expect(page).not_to have_content("For #{discount_3.quantity_threshold} or more items")
       end
 
       it 'i also see a link to each discount show page' do
