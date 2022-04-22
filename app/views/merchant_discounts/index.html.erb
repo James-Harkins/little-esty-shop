@@ -3,7 +3,8 @@
 <div id="discount-<%= discount.id %>">
   <h3><%= discount.percentage %>% off</h3>
   <h3>For <%= discount.quantity_threshold %> or more items!</h3>
-  <%= link_to "More Details", "/merchants/#{@merchant.id}/discounts/#{discount.id}" %>
+  <%= link_to "More Details", "/merchants/#{@merchant.id}/discounts/#{discount.id}" %><br>
+  <br><%= button_to "Delete This Discount", "/merchants/#{@merchant.id}/discounts/#{discount.id}", method: :delete %>
   <hr>
 </div>
 <% end %>
