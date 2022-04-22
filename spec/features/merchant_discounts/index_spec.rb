@@ -37,6 +37,18 @@ RSpec.describe 'merchant_discounts index page' do
 
         expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts/#{discount_1.id}")
       end
+
+      it 'i see a link to create a new discount' do
+        merchant_1 = Merchant.create!(name: "Jim's Plates")
+        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 10)
+        discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 15)
+
+        visit "/merchants/#{merchant_1.id}/discounts"
+
+        click_link "Create New Discount"
+
+        expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts/new")
+      end
     end
   end
 end
