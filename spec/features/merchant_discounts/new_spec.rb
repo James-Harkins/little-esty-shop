@@ -46,16 +46,14 @@ RSpec.describe 'merchant_discounts new page' do
 
         click_button 'Submit'
 
-        expect(page).to have_content("Invalid Data: Percentage must be a whole number between 1 and 99
-                                      and Quantity Threshold must be a whole number greater than 1")
+        expect(page).to have_content("Invalid Data: Percentage must be a whole number between 1 and 99 and Quantity Threshold must be a whole number greater than 1")
 
         fill_in :percentage, with: 99
         fill_in :quantity_threshold, with: 1
 
         click_button 'Submit'
 
-        expect(page).to have_content("Invalid Data: Percentage must be a whole number between 1 and 99
-                                      and Quantity Threshold must be a whole number greater than 1")
+        expect(page).to have_content("Invalid Data: Percentage must be a whole number between 1 and 99 and Quantity Threshold must be a whole number greater than 1")
 
         fill_in :percentage, with: 10
         fill_in :quantity_threshold, with: 5

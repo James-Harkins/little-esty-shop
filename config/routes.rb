@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     delete '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#destroy'
 
     get '/discounts', to: 'merchant_discounts#index'
+    post '/discounts', to: 'merchant_discounts#create'
+    get '/discounts/new', to: 'merchant_discounts#new'
     get '/discounts/:id', to: 'merchant_discounts#show'
   end
 
