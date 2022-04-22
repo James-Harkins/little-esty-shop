@@ -6,7 +6,7 @@
 - [Database Schema](#database-schema)
 
 ## Overview
-[Little Esty Shop](https://little-esty-shop-jwld.herokuapp.com/admin) is a 12-day project assigned during Module 2 of Turing's Back-end Development Progam. Using Ruby on Rails, the app builds out CRUD functionality in a multi-relational databse using RESTful routes according to MVC principles and using TDD via RSpec. Additional gems used include: `capybara`, `pry`, `launchy`, `simplecov`, `orderly`, `vcr`, and `webmock`.
+[Little Esty Shop](https://little-esty-shop-jh.herokuapp.com/) is a 12-day project assigned during Module 2 of Turing's Back-end Development Progam. Using Ruby on Rails, the app builds out CRUD functionality in a multi-relational databse using RESTful routes according to MVC principles and using TDD via RSpec. Additional gems used include: `capybara`, `pry`, `launchy`, `simplecov`, `orderly`, `vcr`, and `webmock`.
 
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships
