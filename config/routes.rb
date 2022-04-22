@@ -26,6 +26,9 @@ Rails.application.routes.draw do
     get '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#show'
     patch '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#update'
     delete '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#destroy'
+
+    get '/discounts', to: 'merchant_discounts#index'
+    get '/discounts/:id', to: 'merchant_discounts#show'
   end
 
   get '/merchants/:id/dashboard', to: 'merchants#show'
