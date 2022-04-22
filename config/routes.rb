@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     post '/discounts', to: 'merchant_discounts#create'
     get '/discounts/new', to: 'merchant_discounts#new'
     get '/discounts/:id', to: 'merchant_discounts#show'
+    get '/discounts/:id/edit', to: 'merchant_discounts#edit'
+    patch '/discounts/:id', to: 'merchant_discounts#update'
     delete 'discounts/:id', to: 'merchant_discounts#destroy'
   end
 
