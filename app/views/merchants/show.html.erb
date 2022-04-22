@@ -3,8 +3,7 @@
 <%= link_to "This Merchant's Invoices", "/merchants/#{@merchant.id}/invoices" %>
 <br>
 
-<%= link_to "View Available Discounts", "/merchants/#{@merchant.id}/discounts" %><br>
-
+<%= link_to "View Available Discounts", "/merchants/#{@merchant.id}/discounts" %>
 <h3> Top 5 Customers</h3>
   <ol type="1">
     <%  @merchant.customers.top_five.each do |customer| %>
