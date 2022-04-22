@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'merchant dashboard page' do
-   it 'shows the merchants name' do
+  it 'shows the merchants name' do
         merchant_1 = Merchant.create!(name: "Geddy's Skydiving Emporium")
         visit "/merchants/#{merchant_1.id}/dashboard"
         expect(page).to have_content(merchant_1.name)
@@ -118,146 +118,157 @@ RSpec.describe 'merchant dashboard page' do
       expect(page).to have_content('Beyblade')
     end
   end
-    it 'shows the top five customers' do
-      merchant = Merchant.create(name: "Braum's")
-      item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
-      bob = Customer.create!(first_name: "Bob", last_name: "Benson")
-      nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
-      barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
-      zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
-      flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
-      tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
+  it 'shows the top five customers' do
+    merchant = Merchant.create(name: "Braum's")
+    item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
-      invoice_1 = bob.invoices.create!(status: 1)
-      invoice_2 = barty.invoices.create!(status: 1)
-      invoice_3 = nate.invoices.create!(status: 1)
-      invoice_4 = zeke.invoices.create!(status: 1)
-      invoice_5 = flipper.invoices.create!(status: 1)
-      invoice_6 = tildy.invoices.create!(status: 1)
+    bob = Customer.create!(first_name: "Bob", last_name: "Benson")
+    nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
+    barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
+    zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
+    flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
+    tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
 
-      invoice_item_1 = item.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 3000)
-      invoice_item_2 = item.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000)
-      invoice_item_3 = item.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000)
-      invoice_item_4 = item.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000)
-      invoice_item_5 = item.invoice_items.create(invoice_id:invoice_5.id, quantity:3, unit_price: 3000)
-      invoice_item_6 = item.invoice_items.create(invoice_id:invoice_6.id, quantity:3, unit_price: 3000)
+    invoice_1 = bob.invoices.create!(status: 1)
+    invoice_2 = barty.invoices.create!(status: 1)
+    invoice_3 = nate.invoices.create!(status: 1)
+    invoice_4 = zeke.invoices.create!(status: 1)
+    invoice_5 = flipper.invoices.create!(status: 1)
+    invoice_6 = tildy.invoices.create!(status: 1)
 
-      t_1 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_2 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_3 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_4 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_5 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_6 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_7 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_8 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_9 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_10 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_11 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_12 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_13 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_14 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_15 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_16 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_17 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_18 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_19 = invoice_5.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_20 = invoice_5.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_21 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
-      t_22 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_23 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_24 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_25 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_26 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_27 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_28 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_29 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_30 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_31 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
-      t_32 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    invoice_item_1 = item.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 3000)
+    invoice_item_2 = item.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000)
+    invoice_item_3 = item.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000)
+    invoice_item_4 = item.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000)
+    invoice_item_5 = item.invoice_items.create(invoice_id:invoice_5.id, quantity:3, unit_price: 3000)
+    invoice_item_6 = item.invoice_items.create(invoice_id:invoice_6.id, quantity:3, unit_price: 3000)
 
-      visit "/merchants/#{merchant.id}/dashboard"
+    t_1 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_2 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_3 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_4 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_5 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_6 = invoice_1.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_7 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_8 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_9 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_10 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_11 = invoice_2.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_12 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_13 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_14 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_15 = invoice_3.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_16 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_17 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_18 = invoice_4.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_19 = invoice_5.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_20 = invoice_5.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_21 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "success")
+    t_22 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_23 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_24 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_25 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_26 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_27 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_28 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_29 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_30 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_31 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
+    t_32 = invoice_6.transactions.create!(credit_card_number: "*", credit_card_expiration_date: "*", result: "fail")
 
-      expect(page).to have_content("Bob Benson")
-      expect(page).to have_content("Barty Dasher")
-      expect(page).to have_content("Nate Chaffee")
-      expect(page).to have_content("Zeke Bristol")
-      expect(page).to have_content("Flipper McDaniel")
-    end
+    visit "/merchants/#{merchant.id}/dashboard"
 
-    it 'shows item ready to ships invoice id as a link to that page' do
-      merchant = Merchant.create(name: "Braum's")
-      item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
-
-      bob = Customer.create!(first_name: "Bob", last_name: "Benson")
-      nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
-      barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
-      zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
-      flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
-      tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
-
-      invoice_1 = bob.invoices.create!(status: 1)
-      invoice_2 = barty.invoices.create!(status: 1)
-      invoice_3 = nate.invoices.create!(status: 1)
-      invoice_4 = zeke.invoices.create!(status: 1)
-      invoice_5 = flipper.invoices.create!(status: 1)
-      invoice_6 = tildy.invoices.create!(status: 1)
-
-      invoice_item_1 = item.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 1000, status: 1)
-      invoice_item_2 = item.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000)
-      invoice_item_3 = item.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000)
-      invoice_item_4 = item.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000)
-      invoice_item_5 = item.invoice_items.create(invoice_id:invoice_5.id, quantity:3, unit_price: 3000)
-      invoice_item_6 = item.invoice_items.create(invoice_id:invoice_6.id, quantity:3, unit_price: 3000)
-
-      visit "/merchants/#{merchant.id}/dashboard"
-
-      click_link("#{invoice_item_1.invoice_id}")
-      expect(page).to have_current_path("/merchants/#{merchant.id}/invoices/#{invoice_item_1.invoice_id}")
+    expect(page).to have_content("Bob Benson")
+    expect(page).to have_content("Barty Dasher")
+    expect(page).to have_content("Nate Chaffee")
+    expect(page).to have_content("Zeke Bristol")
+    expect(page).to have_content("Flipper McDaniel")
   end
 
-    it 'shows item ready to ship from oldest to newest' do
-      merchant = Merchant.create(name: "Braum's")
-      item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
-      item2 = merchant.items.create(name: "Butter", description: "Let it rip!", unit_price: 1000)
-      item3 = merchant.items.create(name: "Grenade", description: "Let it rip!", unit_price: 1000)
-      item4 = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
+  it 'shows item ready to ships invoice id as a link to that page' do
+    merchant = Merchant.create(name: "Braum's")
+    item = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
 
-      bob = Customer.create!(first_name: "Bob", last_name: "Benson")
-      nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
-      barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
-      zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
-      flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
-      tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
+    bob = Customer.create!(first_name: "Bob", last_name: "Benson")
+    nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
+    barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
+    zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
+    flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
+    tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
 
-      invoice_1 = bob.invoices.create!(status: 1)
-      invoice_2 = barty.invoices.create!(status: 1)
-      invoice_3 = nate.invoices.create!(status: 1)
-      invoice_4 = zeke.invoices.create!(status: 1)
+    invoice_1 = bob.invoices.create!(status: 1)
+    invoice_2 = barty.invoices.create!(status: 1)
+    invoice_3 = nate.invoices.create!(status: 1)
+    invoice_4 = zeke.invoices.create!(status: 1)
+    invoice_5 = flipper.invoices.create!(status: 1)
+    invoice_6 = tildy.invoices.create!(status: 1)
+
+    invoice_item_1 = item.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 1000, status: 1)
+    invoice_item_2 = item.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000)
+    invoice_item_3 = item.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000)
+    invoice_item_4 = item.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000)
+    invoice_item_5 = item.invoice_items.create(invoice_id:invoice_5.id, quantity:3, unit_price: 3000)
+    invoice_item_6 = item.invoice_items.create(invoice_id:invoice_6.id, quantity:3, unit_price: 3000)
+
+    visit "/merchants/#{merchant.id}/dashboard"
+
+    click_link("#{invoice_item_1.invoice_id}")
+    expect(page).to have_current_path("/merchants/#{merchant.id}/invoices/#{invoice_item_1.invoice_id}")
+  end
+
+  it 'shows item ready to ship from oldest to newest' do
+    merchant = Merchant.create(name: "Braum's")
+    item1 = merchant.items.create(name: "Toast", description: "Let it rip!", unit_price: 1000)
+    item2 = merchant.items.create(name: "Butter", description: "Let it rip!", unit_price: 1000)
+    item3 = merchant.items.create(name: "Grenade", description: "Let it rip!", unit_price: 1000)
+    item4 = merchant.items.create(name: "Beyblade", description: "Let it rip!", unit_price: 1000)
+
+    bob = Customer.create!(first_name: "Bob", last_name: "Benson")
+    nate = Customer.create!(first_name: "Nate", last_name: "Chaffee")
+    barty = Customer.create!(first_name: "Barty", last_name: "Dasher")
+    zeke = Customer.create!(first_name: "Zeke", last_name: "Bristol")
+    flipper = Customer.create!(first_name: "Flipper", last_name: "McDaniel")
+    tildy = Customer.create!(first_name: "Tildy", last_name: "Lynch")
+
+    invoice_1 = bob.invoices.create!(status: 1)
+    invoice_2 = barty.invoices.create!(status: 1)
+    invoice_3 = nate.invoices.create!(status: 1)
+    invoice_4 = zeke.invoices.create!(status: 1)
 
 
-      invoice_item_1 = item1.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 1000, status: 1)
-      invoice_item_2 = item2.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000, status: 1)
-      invoice_item_3 = item4.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000, status: 1)
-      invoice_item_4 = item3.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000, status: 1)
+    invoice_item_1 = item1.invoice_items.create(invoice_id:invoice_1.id, quantity:3, unit_price: 1000, status: 1)
+    invoice_item_2 = item2.invoice_items.create(invoice_id:invoice_2.id, quantity:3, unit_price: 3000, status: 1)
+    invoice_item_3 = item4.invoice_items.create(invoice_id:invoice_3.id, quantity:3, unit_price: 3000, status: 1)
+    invoice_item_4 = item3.invoice_items.create(invoice_id:invoice_4.id, quantity:3, unit_price: 3000, status: 1)
 
 
-      visit "/merchants/#{merchant.id}/dashboard"
+    visit "/merchants/#{merchant.id}/dashboard"
 
-      within "#ready_to_ship li:nth-child(1)" do
-        expect(page).to have_content("Grenade")
-      end
+    within "#ready_to_ship li:nth-child(1)" do
+      expect(page).to have_content("Grenade")
+    end
 
-      within "#ready_to_ship li:nth-child(2)" do
-        expect(page).to have_content("Beyblade")
-      end
+    within "#ready_to_ship li:nth-child(2)" do
+      expect(page).to have_content("Beyblade")
+    end
 
-      within "#ready_to_ship li:nth-child(3)" do
-        expect(page).to have_content("Butter")
-      end
+    within "#ready_to_ship li:nth-child(3)" do
+      expect(page).to have_content("Butter")
+    end
 
-      within "#ready_to_ship li:nth-child(4)" do
-        expect(page).to have_content("Toast")
-      end
+    within "#ready_to_ship li:nth-child(4)" do
+      expect(page).to have_content("Toast")
+    end
+  end
+
+  it 'i see a link to view all my discounts' do
+    merchant = Merchant.create(name: "Braum's")
+
+    visit "/merchants/#{merchant.id}/dashboard"
+
+    click_link "View Available Discounts"
+
+    expect(current_path).to eq("/merchants/#{merchant.id}/discounts")
   end
 end
