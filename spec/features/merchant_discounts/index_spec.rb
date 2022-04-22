@@ -60,7 +60,7 @@ RSpec.describe 'merchant_discounts index page' do
         discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 20)
 
         visit "/merchants/#{merchant_1.id}/discounts"
-
+        
         within "#discount-#{discount_1.id}" do
           click_button "Delete This Discount"
         end
