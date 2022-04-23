@@ -6,7 +6,7 @@ Created At: <%= @invoice.dates %>
 <br>
 Customer Name: <%= @invoice.full_name %>
 <br>
-Total Revenue: <%= @invoice.invoice_total_revenue %>
+Total Revenue: <%= @invoice.total_revenue %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>

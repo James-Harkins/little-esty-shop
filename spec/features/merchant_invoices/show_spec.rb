@@ -182,7 +182,7 @@ RSpec.describe 'the merchant invoice show page' do
         @invoice_item_10 = InvoiceItem.create!(item: @item_10, invoice: @invoice_1, quantity: 4, unit_price: 20, status: 0)
         @invoice_item_11 = InvoiceItem.create!(item: @item_5, invoice: @invoice_2, quantity: 10000, unit_price: 25, status: 0)
         @invoice_item_12 = InvoiceItem.create!(item: @item_7, invoice: @invoice_2, quantity: 10000, unit_price: 50, status: 0)
-        @invoice_item_13 = InvoiceItem.create!(item: @item_8, invoice: @invoice_1, quantity: 10000, unit_price: 20, status: 0)
+        @invoice_item_13 = InvoiceItem.create!(item: @item_8, invoice: @invoice_2, quantity: 10000, unit_price: 20, status: 0)
         @discount_1 = @merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
         @discount_2 = @merchant_1.discounts.create!(percentage: 30, quantity_threshold: 40)
 
