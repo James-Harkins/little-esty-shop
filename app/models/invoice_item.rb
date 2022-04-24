@@ -12,8 +12,7 @@ class InvoiceItem < ApplicationRecord
   end
 
   def self.total_revenue_for_invoice(invoice_id)
-    sorted_invoices = self.where(invoice_id: invoice_id)
-    sorted_invoices.sum('invoice_items.quantity * invoice_items.unit_price')
+    where(invoice_id: invoice_id).sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
   def self.apply_discounts_for_invoice(invoice_id)
