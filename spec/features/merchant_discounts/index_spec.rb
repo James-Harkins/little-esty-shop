@@ -57,7 +57,7 @@ RSpec.describe 'merchant_discounts index page' do
         discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 15)
 
         merchant_2 = Merchant.create!(name: "John's Bars")
-        discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 20)
+        discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 25)
 
         visit "/merchants/#{merchant_1.id}/discounts"
 
@@ -67,7 +67,7 @@ RSpec.describe 'merchant_discounts index page' do
 
         expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
 
-        expect(page).not_to have_content(discount_1.percentage)
+        expect(page).not_to have_content("20% off")
         expect(page).not_to have_content(discount_1.quantity_threshold)
         expect(page).to have_content(discount_2.percentage)
         expect(page).to have_content(discount_2.quantity_threshold)
@@ -86,20 +86,14 @@ RSpec.describe 'merchant_discounts index page' do
         visit "/merchants/#{merchant_1.id}/discounts"
 
         within "#upcoming_holidays" do
-          within "#upcoming_holiday_1" do
-            expect(page).to have_content("Memorial Day")
-            expect(page).to have_content("2022-05-30")
-          end
+          expect(page).to have_content("Memorial Day")
+          expect(page).to have_content("2022-05-30")
 
-          within "#upcoming_holiday_2" do
-            expect(page).to have_content("Juneteenth")
-            expect(page).to have_content("2022-06-20")
-          end
+          expect(page).to have_content("Juneteenth")
+          expect(page).to have_content("2022-06-20")
 
-          within "#upcoming_holiday_3" do
-            expect(page).to have_content("Independence Day")
-            expect(page).to have_content("2022-07-04")
-          end
+          expect(page).to have_content("Independence Day")
+          expect(page).to have_content("2022-07-04")
         end
       end
     end
