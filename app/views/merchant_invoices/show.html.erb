@@ -6,8 +6,8 @@ Created At: <%= @invoice.dates %>
 <br>
 Customer Name: <%= @invoice.full_name %>
 <br>
-Total Revenue: $<%= "%.2f" % (@invoice.total_revenue.to_f/100).truncate(2) %>
-Revenue after Discounts: $<%= "%.2f" % (@invoice.discounted_revenue.to_f/100).truncate(2) %>
+Total Revenue: $<%= "%.2f" % (@merchant.invoice_items.total_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
+Revenue after Discounts: $<%= "%.2f" % (@merchant.invoice_items.discounted_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>
