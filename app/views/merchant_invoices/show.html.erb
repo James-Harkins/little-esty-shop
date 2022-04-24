@@ -6,7 +6,7 @@ Created At: <%= @invoice.dates %>
 <br>
 Customer Name: <%= @invoice.full_name %>
 <br>
-Total Revenue: <%= @invoice.invoice_total_revenue %>
+Total Revenue: $<%= "%.2f" % (@invoice.total_revenue.to_f/100).truncate(2) %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>
@@ -14,7 +14,7 @@ Total Revenue: <%= @invoice.invoice_total_revenue %>
 
     Quantity: <%=invoice_item.quantity %>
     <br>
-    Unit Price: <%=invoice_item.unit_price%>
+    Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %>
     <br>
     <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
       <%= form.label "Status" %>
