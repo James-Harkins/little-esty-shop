@@ -57,22 +57,44 @@ RSpec.describe 'merchant_discounts index page' do
         discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 15)
 
         merchant_2 = Merchant.create!(name: "John's Bars")
-        discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 20)
+        discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 25)
 
         visit "/merchants/#{merchant_1.id}/discounts"
-        
+
         within "#discount-#{discount_1.id}" do
           click_button "Delete This Discount"
         end
 
         expect(current_path).to eq("/merchants/#{merchant_1.id}/discounts")
 
-        expect(page).not_to have_content(discount_1.percentage)
+        expect(page).not_to have_content("20% off")
         expect(page).not_to have_content(discount_1.quantity_threshold)
         expect(page).to have_content(discount_2.percentage)
         expect(page).to have_content(discount_2.quantity_threshold)
         expect(page).not_to have_content(discount_3.percentage)
         expect(page).not_to have_content("For #{discount_3.quantity_threshold} or more items")
+      end
+
+      it 'i see an Upcoming Holidays section listing the name and date of the next 3 upcoming US holidays' do
+        merchant_1 = Merchant.create!(name: "Jim's Plates")
+        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 10)
+        discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 15)
+
+        merchant_2 = Merchant.create!(name: "John's Bars")
+        discount_3 = merchant_2.discounts.create!(percentage: 50, quantity_threshold: 20)
+
+        visit "/merchants/#{merchant_1.id}/discounts"
+
+        within "#upcoming_holidays" do
+          expect(page).to have_content("Memorial Day")
+          expect(page).to have_content("2022-05-30")
+
+          expect(page).to have_content("Juneteenth")
+          expect(page).to have_content("2022-06-20")
+
+          expect(page).to have_content("Independence Day")
+          expect(page).to have_content("2022-07-04")
+        end
       end
     end
   end
