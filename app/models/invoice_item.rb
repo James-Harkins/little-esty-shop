@@ -18,10 +18,6 @@ class InvoiceItem < ApplicationRecord
   end
 
   def belongs_to_merchant(merchant_id)
-    if item.merchant_id == merchant_id.to_i
-      return true
-    else
-      return false
-    end
+    item.merchant_id == merchant_id.to_i
   end
 end
