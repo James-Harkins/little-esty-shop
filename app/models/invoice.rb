@@ -31,7 +31,16 @@ class Invoice < ApplicationRecord
     invoice_items.sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
-  
+  def apply_discounts
+    invoice_items.each do |invoice_item|
+      discounts.distinct.order(percentage: :desc).each do |discount|
+        if discount.quantity_threshold <= invoice_item.quantity && invoice_item.discount_percentage == 100
+          invoice_item.update(discount_percentage: invoice_item.discount_percentage - discount.percentage)
+        end
+      end
+    end
+    invoice_items
+  end
 
   def discounted_revenue
 
