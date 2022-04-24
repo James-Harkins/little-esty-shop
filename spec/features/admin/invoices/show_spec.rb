@@ -125,7 +125,7 @@ RSpec.describe "Admin Invoices Show" do
 
       @invoice_1 = @customer_1.invoices.create!(status: 1)
       @invoice_2 = @customer_1.invoices.create!(status: 0)
-      @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_1, quantity: 1, unit_price: 5, status: 0)
+      @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_1, quantity: 35, unit_price: 5, status: 0)
       @invoice_item_2 = InvoiceItem.create!(item: @item_2, invoice: @invoice_1, quantity: 20, unit_price: 10, status: 0)
       @invoice_item_3 = InvoiceItem.create!(item: @item_3, invoice: @invoice_1, quantity: 25, unit_price: 20, status: 0)
       @invoice_item_4 = InvoiceItem.create!(item: @item_4, invoice: @invoice_1, quantity: 10, unit_price: 5, status: 0)
@@ -145,11 +145,11 @@ RSpec.describe "Admin Invoices Show" do
     end
 
     it 'displays the invoices total revenue' do
-      expect(page).to have_content("Total Revenue: $23.90")
+      expect(page).to have_content("Total Revenue: $25.60")
     end
 
     it 'displays the invoices discounted revenue' do
-      expect(page).to have_content("Revenue after Discounts: $17.48")
+      expect(page).to have_content("Revenue after Discounts: $18.83")
     end
   end
 end
