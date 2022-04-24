@@ -78,16 +78,16 @@ RSpec.describe InvoiceItem, type: :model do
         discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
         discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
 
-        expect(invoice_item_1.applied_discount_id).to eq(nil)
-        expect(invoice_item_2.applied_discount_id).to eq(discount_1.id)
-        expect(invoice_item_3.applied_discount_id).to eq(nil)
-        expect(invoice_item_4.applied_discount_id).to eq(discount_2.id)
-        expect(invoice_item_5.applied_discount_id).to eq(discount_2.id)
-        expect(invoice_item_6.applied_discount_id).to eq(nil)
-        expect(invoice_item_7.applied_discount_id).to eq(nil)
-        expect(invoice_item_8.applied_discount_id).to eq(nil)
-        expect(invoice_item_9.applied_discount_id).to eq(nil)
-        expect(invoice_item_10.applied_discount_id).to eq(nil)
+        expect(invoice_item_1.applied_discount).to eq(nil)
+        expect(invoice_item_2.applied_discount).to eq(discount_1)
+        expect(invoice_item_3.applied_discount).to eq(nil)
+        expect(invoice_item_4.applied_discount).to eq(discount_2)
+        expect(invoice_item_5.applied_discount).to eq(discount_2)
+        expect(invoice_item_6.applied_discount).to eq(nil)
+        expect(invoice_item_7.applied_discount).to eq(nil)
+        expect(invoice_item_8.applied_discount).to eq(nil)
+        expect(invoice_item_9.applied_discount).to eq(nil)
+        expect(invoice_item_10.applied_discount).to eq(nil)
       end
     end
   end
