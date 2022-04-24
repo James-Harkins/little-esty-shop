@@ -22,6 +22,9 @@ Revenue after Discounts: $<%= "%.2f" % (@invoice.discounted_revenue.to_f/100).tr
       <%= form.select(:status, options_for_select([['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], invoice_item.status)) %>
       <%= form.submit "Update Item Status" %>
     <% end %>
+    <% if invoice_item.applied_discount %>
+      <%= link_to "View Applied Bulk Discount", "/merchants/#{@merchant.id}/discounts/#{invoice_item.applied_discount.id}" %>
+    <% end %>
   <% end %>
 </div>
 <% end %>

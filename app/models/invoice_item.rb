@@ -22,4 +22,10 @@ class InvoiceItem < ApplicationRecord
   def belongs_to_merchant(merchant_id)
     item.merchant_id == merchant_id.to_i
   end
+
+  def applied_discount
+    discounts.order(percentage: :desc).find do |discount|
+      discount.quantity_threshold <= quantity
+    end
+  end
 end
