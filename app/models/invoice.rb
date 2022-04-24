@@ -43,6 +43,8 @@ class Invoice < ApplicationRecord
   end
 
   def discounted_revenue
-
+    total = 0
+    apply_discounts.each {|invoice_item| total += ((invoice_item.unit_price * invoice_item.quantity) * (invoice_item.discount_percentage.to_f / 100))}
+    total
   end
 end

@@ -149,7 +149,7 @@ RSpec.describe Invoice, type: :model do
       end
     end
 
-    describe '.invoice_items_with_discounts_applied' do
+    describe '.apply_discounts' do
       it 'returns all invoice items with discounts applied to their discount_percentages if applicable' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
@@ -203,7 +203,7 @@ RSpec.describe Invoice, type: :model do
         discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
 
         invoice_1.apply_discounts
-        
+
         expect(invoice_1.invoice_items.first.discount_percentage).to eq(100)
         expect(invoice_1.invoice_items.second.discount_percentage).to eq(80)
         expect(invoice_1.invoice_items.third.discount_percentage).to eq(100)
@@ -263,7 +263,7 @@ RSpec.describe Invoice, type: :model do
         invoice_item_12 = InvoiceItem.create!(item: item_7, invoice: invoice_2, quantity: 10000, unit_price: 50, status: 0)
         invoice_item_13 = InvoiceItem.create!(item: item_8, invoice: invoice_2, quantity: 10000, unit_price: 20, status: 0)
         discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 40)
+        discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
 
         expect(invoice_1.discounted_revenue).to eq(1200)
       end
