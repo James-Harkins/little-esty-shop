@@ -22,4 +22,8 @@ class InvoiceItem < ApplicationRecord
   def belongs_to_merchant(merchant_id)
     item.merchant_id == merchant_id.to_i
   end
+
+  def apply_discount
+    
+  end
 end
