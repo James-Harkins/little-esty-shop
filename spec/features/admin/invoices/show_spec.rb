@@ -90,6 +90,7 @@ RSpec.describe "Admin Invoices Show" do
   describe 'bulk discounts' do
     before :each do
       @merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
+      @merchant_2 = Merchant.create!(name: "Bill's Less Rare Guitars")
       @item_1 = @merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                       description: "Tobacco Burst Finish, Rosewood Fingerboard",
                                       unit_price: 25000)
