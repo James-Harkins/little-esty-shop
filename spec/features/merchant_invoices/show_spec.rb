@@ -228,6 +228,40 @@ RSpec.describe 'the merchant invoice show page' do
       it 'i see the discounted revenue for the invoice' do
         expect(page).to have_content("Revenue after Discounts: $12.00")
       end
+
+      it 'next to each invoice_item, i see a link to the show page for the bulk discount that was applied to it' do
+        within "#item-#{@invoice_item_1.id}" do
+          expect(page).not_to have_link("View Applied Bulk Discount")
+        end
+        within "#item-#{@invoice_item_2.id}" do
+          expect(page).to have_link("View Applied Bulk Discount")
+        end
+        within "#item-#{@invoice_item_3.id}" do
+          expect(page).not_to have_link("View Applied Bulk Discount")
+        end
+        within "#item-#{@invoice_item_4.id}" do
+          expect(page).to have_link("View Applied Bulk Discount")
+        end
+        within "#item-#{@invoice_item_5.id}" do
+          expect(page).to have_link("View Applied Bulk Discount")
+        end
+      end
+
+      it 'if i click one of the invoice items links, it takes me to that bulk discounts show page' do
+        within "#item-#{@invoice_item_5.id}" do
+          click_link("View Applied Bulk Discount")
+        end
+
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_2.id}")
+
+        visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
+
+        within "#item-#{@invoice_item_2.id}" do
+          click_link("View Applied Bulk Discount")
+        end
+
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}")
+      end
     end
   end
 end
