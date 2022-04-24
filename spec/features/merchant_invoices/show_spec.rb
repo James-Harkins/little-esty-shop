@@ -168,6 +168,7 @@ RSpec.describe 'the merchant invoice show page' do
     describe 'applying bulk discounts' do
       before :each do
         @merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
+        @merchant_2 = Merchant.create!(name: "Bill's Less Rare Guitars")
         @item_1 = @merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
                                         unit_price: 25000)
@@ -198,8 +199,13 @@ RSpec.describe 'the merchant invoice show page' do
         @item_10 = @merchant_1.items.create!(name: "1975 Gibson Les Paul",
                                         description: "Sunburst Finish, Maple Fingerboard",
                                         unit_price: 400)
+        @item_11 = @merchant_2.items.create!(name: "1975 Gibson Les Paul",
+                                        description: "Sunburst Finish, Maple Fingerboard",
+                                        unit_price: 400)
+        @item_12 = @merchant_2.items.create!(name: "1975 Gibson Les Paul",
+                                        description: "Sunburst Finish, Maple Fingerboard",
+                                        unit_price: 400)
         @customer_1 = Customer.create!(first_name: "Guthrie", last_name: "Govan")
-
         @invoice_1 = @customer_1.invoices.create!(status: 1)
         @invoice_2 = @customer_1.invoices.create!(status: 0)
         @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_1, quantity: 1, unit_price: 5, status: 0)
@@ -215,6 +221,8 @@ RSpec.describe 'the merchant invoice show page' do
         @invoice_item_11 = InvoiceItem.create!(item: @item_5, invoice: @invoice_2, quantity: 10000, unit_price: 25, status: 0)
         @invoice_item_12 = InvoiceItem.create!(item: @item_7, invoice: @invoice_2, quantity: 10000, unit_price: 50, status: 0)
         @invoice_item_13 = InvoiceItem.create!(item: @item_8, invoice: @invoice_2, quantity: 10000, unit_price: 20, status: 0)
+        @invoice_item_14 = InvoiceItem.create!(item: @item_11, invoice: @invoice_1, quantity: 10000, unit_price: 20, status: 0)
+        @invoice_item_15 = InvoiceItem.create!(item: @item_12, invoice: @invoice_1, quantity: 10000, unit_price: 20, status: 0)
         @discount_1 = @merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
         @discount_2 = @merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
 
