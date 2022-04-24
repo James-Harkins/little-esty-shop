@@ -4,6 +4,7 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
+  has_many :discounts, through: :merchants
 
   enum status: ["in progress".to_sym, :completed, :cancelled]
 
@@ -28,5 +29,9 @@ class Invoice < ApplicationRecord
 
   def total_revenue
     invoice_items.sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def discounted_revenue
+    
   end
 end
