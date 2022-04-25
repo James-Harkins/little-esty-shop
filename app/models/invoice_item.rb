@@ -42,7 +42,7 @@ class InvoiceItem < ApplicationRecord
   end
 
   def belongs_to_merchant(merchant_id)
-    item.merchant_id == merchant_id.to_i
+    item.merchant_id == merchant_id
   end
 
   def applied_discount
