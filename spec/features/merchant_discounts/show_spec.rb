@@ -1,7 +1,7 @@
-RSpec.describe 'merchant_discounts index page' do
+RSpec.describe 'merchant_discounts show page' do
   describe 'as a user' do
-    describe 'when i visit my discounts show page' do
-      it 'i see all of my bulk discounts and their percentage and quantity thresholds' do
+    describe 'when i visit a discounts show page' do
+      it 'i see only that bulk discount and its percentage and quantity thresholds' do
         merchant_1 = Merchant.create!(name: "Jim's Plates")
         discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 10)
         discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 15)

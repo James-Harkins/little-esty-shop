@@ -46,8 +46,6 @@ class InvoiceItem < ApplicationRecord
   end
 
   def applied_discount
-    discounts.order(percentage: :desc).find do |discount|
-      discount.quantity_threshold <= quantity
-    end
+    discounts.order(percentage: :desc).find {|discount| discount.quantity_threshold <= quantity}
   end
 end

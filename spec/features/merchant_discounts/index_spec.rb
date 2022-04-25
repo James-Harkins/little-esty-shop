@@ -86,6 +86,7 @@ RSpec.describe 'merchant_discounts index page' do
         visit "/merchants/#{merchant_1.id}/discounts"
 
         within "#upcoming_holidays" do
+          expect(page).to have_content("Upcoming Holidays")
           expect(page).to have_content("Memorial Day")
           expect(page).to have_content("2022-05-30")
 
