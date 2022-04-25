@@ -7,7 +7,7 @@ Created At: <%= @invoice.dates %>
 Customer Name: <%= @invoice.full_name %>
 <br>
 Total Revenue: $<%= "%.2f" % (@merchant.invoice_items.total_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
-Revenue after Discounts: $<%= "%.2f" % (@merchant.invoice_items.discounted_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
+Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items.bulk_discounted_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>
@@ -22,8 +22,8 @@ Revenue after Discounts: $<%= "%.2f" % (@merchant.invoice_items.discounted_reven
       <%= form.select(:status, options_for_select([['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], invoice_item.status)) %>
       <%= form.submit "Update Item Status" %>
     <% end %>
-    <% if invoice_item.applied_discount %>
-      <%= link_to "View Applied Bulk Discount", "/merchants/#{@merchant.id}/discounts/#{invoice_item.applied_discount.id}" %>
+    <% if invoice_item.applied_bulk_discount %>
+      <%= link_to "View Applied Bulk Discount", "/merchants/#{@merchant.id}/bulk_discounts/#{invoice_item.applied_bulk_discount.id}" %>
     <% end %>
   <% end %>
 </div>

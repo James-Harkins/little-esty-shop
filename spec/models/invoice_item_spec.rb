@@ -5,7 +5,7 @@ RSpec.describe InvoiceItem, type: :model do
     it { should belong_to(:invoice) }
     it { should belong_to(:item) }
     it { should have_one(:merchant).through(:item)}
-    it { should have_many(:discounts).through(:merchant)}
+    it { should have_many(:bulk_discounts).through(:merchant)}
   end
 
   describe 'class methods' do
@@ -25,8 +25,8 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.applied_discount_id' do
-      it 'returns the id of the discount applied to it' do
+    describe '.applied_bulk_discount_id' do
+      it 'returns the id of the bulk_discount applied to it' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -75,19 +75,19 @@ RSpec.describe InvoiceItem, type: :model do
         invoice_item_11 = InvoiceItem.create!(item: item_5, invoice: invoice_2, quantity: 10000, unit_price: 25, status: 0)
         invoice_item_12 = InvoiceItem.create!(item: item_7, invoice: invoice_2, quantity: 10000, unit_price: 50, status: 0)
         invoice_item_13 = InvoiceItem.create!(item: item_8, invoice: invoice_2, quantity: 10000, unit_price: 20, status: 0)
-        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
+        bulk_discount_1 = merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+        bulk_discount_2 = merchant_1.bulk_discounts.create!(percentage: 40, quantity_threshold: 30)
 
-        expect(invoice_item_1.applied_discount).to eq(nil)
-        expect(invoice_item_2.applied_discount).to eq(discount_1)
-        expect(invoice_item_3.applied_discount).to eq(nil)
-        expect(invoice_item_4.applied_discount).to eq(discount_2)
-        expect(invoice_item_5.applied_discount).to eq(discount_2)
-        expect(invoice_item_6.applied_discount).to eq(nil)
-        expect(invoice_item_7.applied_discount).to eq(nil)
-        expect(invoice_item_8.applied_discount).to eq(nil)
-        expect(invoice_item_9.applied_discount).to eq(nil)
-        expect(invoice_item_10.applied_discount).to eq(nil)
+        expect(invoice_item_1.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_2.applied_bulk_discount).to eq(bulk_discount_1)
+        expect(invoice_item_3.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_4.applied_bulk_discount).to eq(bulk_discount_2)
+        expect(invoice_item_5.applied_bulk_discount).to eq(bulk_discount_2)
+        expect(invoice_item_6.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_7.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_8.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_9.applied_bulk_discount).to eq(nil)
+        expect(invoice_item_10.applied_bulk_discount).to eq(nil)
       end
     end
   end

@@ -1,4 +1,4 @@
-class Discount < ApplicationRecord
+class BulkDiscount < ApplicationRecord
   belongs_to :merchant
   validates_presence_of :percentage
   validates :percentage, numericality: { only_integer: true, less_than: 100, greater_than: 0 }

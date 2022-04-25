@@ -4,8 +4,7 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
-  has_many :discounts, through: :merchants
-
+  has_many :bulk_discounts, through: :merchants
   enum status: ["in progress".to_sym, :completed, :cancelled]
 
   def self.incomplete
@@ -31,18 +30,18 @@ class Invoice < ApplicationRecord
     invoice_items.sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
-  def apply_discounts
+  def apply_bulk_discounts
     invoice_items.each do |invoice_item|
-      invoice_item.discounts.distinct.order(percentage: :desc).each do |discount|
-        if discount.quantity_threshold <= invoice_item.quantity && invoice_item.discount_percentage == 100
-          invoice_item.update(discount_percentage: invoice_item.discount_percentage - discount.percentage)
+      invoice_item.bulk_discounts.distinct.order(percentage: :desc).each do |bulk_discount|
+        if bulk_discount.quantity_threshold <= invoice_item.quantity && invoice_item.discount_percentage == 100
+          invoice_item.update(discount_percentage: invoice_item.discount_percentage - bulk_discount.percentage)
         end
       end
     end
     invoice_items
   end
 
-  def discounted_revenue
-    apply_discounts.sum('(invoice_items.unit_price * invoice_items.quantity) * (invoice_items.discount_percentage / 100)')
+  def bulk_discounted_revenue
+    apply_bulk_discounts.sum('(invoice_items.unit_price * invoice_items.quantity) * (invoice_items.discount_percentage / 100)')
   end
 end

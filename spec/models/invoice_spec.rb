@@ -93,7 +93,7 @@ RSpec.describe Invoice, type: :model do
 
   describe 'instance methods' do
     describe '.total_revenue' do
-      it 'returns the total revenue of some invoice before applying discounts' do
+      it 'returns the total revenue of some invoice before applying bulk discounts' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -142,15 +142,15 @@ RSpec.describe Invoice, type: :model do
         invoice_item_11 = InvoiceItem.create!(item: item_5, invoice: invoice_2, quantity: 10000, unit_price: 25, status: 0)
         invoice_item_12 = InvoiceItem.create!(item: item_7, invoice: invoice_2, quantity: 10000, unit_price: 50, status: 0)
         invoice_item_13 = InvoiceItem.create!(item: item_8, invoice: invoice_2, quantity: 10000, unit_price: 20, status: 0)
-        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        discount_2 = merchant_1.discounts.create!(percentage: 30, quantity_threshold: 40)
+        bulk_discount_1 = merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+        bulk_discount_2 = merchant_1.bulk_discounts.create!(percentage: 30, quantity_threshold: 40)
 
         expect(invoice_1.total_revenue).to eq(1440)
       end
     end
 
-    describe '.apply_discounts' do
-      it 'returns all invoice items with discounts applied to their discount_percentages if applicable' do
+    describe '.apply_bulk_discounts' do
+      it 'returns all invoice items with bulk discounts applied to their bulk discount_percentages if applicable' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -199,10 +199,10 @@ RSpec.describe Invoice, type: :model do
         invoice_item_11 = InvoiceItem.create!(item: item_5, invoice: invoice_2, quantity: 10000, unit_price: 25, status: 0)
         invoice_item_12 = InvoiceItem.create!(item: item_7, invoice: invoice_2, quantity: 10000, unit_price: 50, status: 0)
         invoice_item_13 = InvoiceItem.create!(item: item_8, invoice: invoice_2, quantity: 10000, unit_price: 20, status: 0)
-        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
+        bulk_discount_1 = merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+        bulk_discount_2 = merchant_1.bulk_discounts.create!(percentage: 40, quantity_threshold: 30)
 
-        invoice_1.apply_discounts
+        invoice_1.apply_bulk_discounts
 
         expect(invoice_1.invoice_items.first.discount_percentage).to eq(100)
         expect(invoice_1.invoice_items.second.discount_percentage).to eq(80)
@@ -212,8 +212,8 @@ RSpec.describe Invoice, type: :model do
       end
     end
 
-    describe '.discounted_revenue' do
-      it 'returns the revenue of some invoice including discounts' do
+    describe '.bulk_discounted_revenue' do
+      it 'returns the revenue of some invoice including bulk discounts' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
         item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
                                         description: "Tobacco Burst Finish, Rosewood Fingerboard",
@@ -262,10 +262,10 @@ RSpec.describe Invoice, type: :model do
         invoice_item_11 = InvoiceItem.create!(item: item_5, invoice: invoice_2, quantity: 10000, unit_price: 25, status: 0)
         invoice_item_12 = InvoiceItem.create!(item: item_7, invoice: invoice_2, quantity: 10000, unit_price: 50, status: 0)
         invoice_item_13 = InvoiceItem.create!(item: item_8, invoice: invoice_2, quantity: 10000, unit_price: 20, status: 0)
-        discount_1 = merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        discount_2 = merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
+        bulk_discount_1 = merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+        bulk_discount_2 = merchant_1.bulk_discounts.create!(percentage: 40, quantity_threshold: 30)
 
-        expect(invoice_1.discounted_revenue).to eq(1200)
+        expect(invoice_1.bulk_discounted_revenue).to eq(1200)
       end
     end
   end
