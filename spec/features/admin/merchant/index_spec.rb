@@ -127,11 +127,11 @@ RSpec.describe "Admin Merchants Index" do
 
     visit '/admin/merchants'
     within("#top-by-revenue") do
-      expect(page).to have_content('Merchant 1 $1611.20')
-      expect(page).to have_content('Merchant 2 $98.00')
-      expect(page).to have_content('Merchant 4 $45.00')
-      expect(page).to have_content('Merchant 5 $11.40')
-      expect(page).to have_content('Merchant 3 $2.46')
+      expect(page).to have_content('Merchant 1: $1611.20')
+      expect(page).to have_content('Merchant 2: $98.00')
+      expect(page).to have_content('Merchant 4: $45.00')
+      expect(page).to have_content('Merchant 5: $11.40')
+      expect(page).to have_content('Merchant 3: $2.46')
       expect(page).to_not have_content("Merchant 6")
     end
   end

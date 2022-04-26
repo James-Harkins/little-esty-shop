@@ -1,12 +1,12 @@
 <h1>Invoice <%=@invoice.id%></h1><br>
 Invoice Status: <%= @invoice.status %><br>
-Created At: <%= @invoice.dates %><br>
-Customer Name: <%= @invoice.full_name %><br>
+Created At: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %><br>
+Customer Name: <%= @invoice.customer_full_name %><br>
 Total Revenue: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).total_revenue.to_f/100).truncate(2) %>
 Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).discounted_revenue.to_f/100).truncate(2) %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
-  <% if invoice_item.belongs_to_merchant(@merchant.id) %>
+  <% if invoice_item.belongs_to_merchant?(@merchant.id) %>
     <h3>Invoice Item <%= invoice_item.id %></h3>
     Quantity: <%=invoice_item.quantity %><br>
     Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %><br>

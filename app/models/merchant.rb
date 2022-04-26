@@ -30,9 +30,6 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
-  def total_revenue_to_dollars
-    "$" + (sprintf "%.2f",total_revenue.to_f/100).to_s
-  end
 
   def best_day
     invoices.select('invoices.created_at, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue')

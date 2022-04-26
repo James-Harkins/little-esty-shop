@@ -15,16 +15,9 @@ class InvoiceItem < ApplicationRecord
     end
   end
 
-  def invoice_dates
-    invoice.created_at.strftime("%A, %B %d, %Y")
-  end
 
   def self.ready_to_ship
-    where(status: "packaged").order('created_at DESC')
-  end
-
-  def belongs_to_merchant(merchant_id)
-    item.merchant_id == merchant_id
+    where(status: "packaged").order(created_at: :desc)
   end
 
   def applied_bulk_discount
@@ -43,5 +36,13 @@ class InvoiceItem < ApplicationRecord
     else
       1
     end
+  end
+
+  def invoice_date
+    invoice.created_at
+  end
+
+  def belongs_to_merchant?(merchant_id)
+    item.merchant_id == merchant_id
   end
 end

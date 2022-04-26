@@ -18,11 +18,7 @@ class Invoice < ApplicationRecord
     order(created_at: :desc)
   end
 
-  def dates
-    created_at.strftime("%A, %B %d, %Y")
-  end
-
-  def full_name
+  def customer_full_name
     customer.first_name + " " +  customer.last_name
   end
 
