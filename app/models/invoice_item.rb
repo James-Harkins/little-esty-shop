@@ -6,29 +6,13 @@ class InvoiceItem < ApplicationRecord
   enum status: [:pending, :packaged, :shipped]
 
   def self.total_revenue
-    sum('unit_price * quantity')
+    sum('invoice_items.unit_price * invoice_items.quantity')
   end
 
-  def self.total_revenue_for_invoice(invoice_id)
-    where(invoice_id: invoice_id).sum('invoice_items.quantity * invoice_items.unit_price')
-  end
-
-  def self.apply_bulk_discounts_for_invoice(invoice_id)
-    sorted_invoice_items = self.where(invoice_id: invoice_id)
-    sorted_invoice_items.each do |invoice_item|
-      if invoice_item.invoice_id == invoice_id
-        invoice_item.bulk_discounts.distinct.order(percentage: :desc).each do |bulk_discount|
-          if bulk_discount.quantity_threshold <= invoice_item.quantity && invoice_item.discount_percentage == 100
-            invoice_item.update(discount_percentage: invoice_item.discount_percentage - bulk_discount.percentage)
-          end
-        end
-      end
+  def self.discounted_revenue
+    all.reduce(0) do |total, invoice_item|
+      total += invoice_item.total_revenue * invoice_item.discount_multiplier
     end
-    sorted_invoice_items
-  end
-
-  def self.bulk_discounted_revenue_for_invoice(invoice_id)
-    apply_bulk_discounts_for_invoice(invoice_id).sum('(invoice_items.unit_price * invoice_items.quantity) * (invoice_items.discount_percentage / 100)')
   end
 
   def invoice_dates
@@ -44,6 +28,20 @@ class InvoiceItem < ApplicationRecord
   end
 
   def applied_bulk_discount
-    bulk_discounts.order(percentage: :desc).find {|bulk_discount| bulk_discount.quantity_threshold <= quantity}
+    bulk_discounts.order(percentage: :desc)
+                  .where('bulk_discounts.quantity_threshold <= ?', quantity)
+                  .first
+  end
+
+  def total_revenue
+    unit_price * quantity
+  end
+
+  def discount_multiplier
+    if applied_bulk_discount
+      (100.0 - applied_bulk_discount.percentage) / 100
+    else
+      1
+    end
   end
 end

@@ -1,13 +1,9 @@
-<h1>Invoice <%=@invoice.id%></h1>
-<br>
-Invoice Status: <%= @invoice.status %>
-<br>
-Created At: <%= @invoice.dates %>
-<br>
-Customer Name: <%= @invoice.full_name %>
-<br>
-Total Revenue: $<%= "%.2f" % (@merchant.invoice_items.total_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
-Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items.bulk_discounted_revenue_for_invoice(@invoice.id).to_f/100).truncate(2) %>
+<h1>Invoice <%=@invoice.id%></h1><br>
+Invoice Status: <%= @invoice.status %><br>
+Created At: <%= @invoice.dates %><br>
+Customer Name: <%= @invoice.full_name %><br>
+Total Revenue: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).total_revenue.to_f/100).truncate(2) %>
+Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).discounted_revenue.to_f/100).truncate(2) %>
 <% @invoice.invoice_items.each do |invoice_item|%>
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>
