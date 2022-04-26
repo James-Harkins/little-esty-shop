@@ -17,7 +17,7 @@ class InvoiceItem < ApplicationRecord
 
 
   def self.ready_to_ship
-    where(status: "packaged").order('created_at DESC')
+    where(status: "packaged").order(created_at: :desc)
   end
 
   def applied_bulk_discount
