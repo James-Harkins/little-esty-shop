@@ -42,4 +42,12 @@ class Merchant < ApplicationRecord
   def invoice_items_by_invoice(invoice_id)
     invoice_items.where(invoice_id: invoice_id)
   end
+
+  def total_revenue_for_invoice(invoice_id)
+    invoice_items_by_invoice(invoice_id).total_revenue
+  end
+
+  def discounted_revenue_for_invoice(invoice_id)
+    invoice_items_by_invoice(invoice_id).discounted_revenue
+  end
 end
