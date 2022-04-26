@@ -1,18 +1,17 @@
 <h1>Invoice ID: <%= @invoice.id %></h1><hr>
+<h3>Customer: <%= @invoice.customer_full_name %></h3>
+<h3>Total Revenue: $<%= '%.2f' % (@invoice.total_revenue.to_f.round(2) / 100).round(2) %></h3>
+<h3>Revenue after Bulk Discounts: $<%= '%.2f' % (@invoice.bulk_discounted_revenue.to_f.round(2) / 100).round(2) %></h3>
 <p>Created at: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
-<p>Customer: <%= @invoice.customer_full_name %></p>
 
-<%= render 'form' %><hr>
+<%= render 'form' %><br><hr>
 
 <h3>Items:</h3>
 <% @invoice.items.each do |item| %>
   <div id="item-<%= item.id %>">
     <h4><%= item.name %></h4>
     <p>Quantity: <%= item.invoice_items.first.quantity %></p>
-    <p>Sold for: $<%= '%.2f' % (item.invoice_items.first.unit_price.to_f.round(2) / 100) %></p>
+    <p>Selling Price: $<%= '%.2f' % (item.invoice_items.first.unit_price.to_f.round(2) / 100) %></p>
     <p>Status: <%= item.invoice_items.first.status %></p>
   </div>
 <% end %>
-
-<h3>Total Revenue: $<%= '%.2f' % (@invoice.total_revenue.to_f.round(2) / 100).round(2) %></h3>
-<h3>Revenue after Bulk Discounts: $<%= '%.2f' % (@invoice.bulk_discounted_revenue.to_f.round(2) / 100).round(2) %></h3>
