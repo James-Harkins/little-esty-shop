@@ -42,7 +42,7 @@ class InvoiceItem < ApplicationRecord
     invoice.created_at
   end
 
-  def belongs_to_merchant(merchant_id)
+  def belongs_to_merchant?(merchant_id)
     item.merchant_id == merchant_id
   end
 end
