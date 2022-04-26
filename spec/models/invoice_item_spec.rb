@@ -220,5 +220,24 @@ RSpec.describe InvoiceItem, type: :model do
         expect(invoice_item_10.applied_bulk_discount).to eq(nil)
       end
     end
+
+    describe '.total_revenue' do
+      it 'returns the revenue for some invoice_item' do
+        merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
+        item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
+                                        description: "Tobacco Burst Finish, Rosewood Fingerboard",
+                                        unit_price: 25000)
+        item_2 = merchant_1.items.create!(name: "1954 Fender Stratocaster",
+                                        description: "Seafoam Green Finish, Maple Fingerboard",
+                                        unit_price: 10000)
+        customer_1 = Customer.create!(first_name: "Guthrie", last_name: "Govan")
+        invoice_1 = customer_1.invoices.create!(status: 1)
+        invoice_item_1 = InvoiceItem.create!(item: item_1, invoice: invoice_1, quantity: 1, unit_price: 5, status: 0)
+        invoice_item_2 = InvoiceItem.create!(item: item_2, invoice: invoice_1, quantity: 20, unit_price: 10, status: 0)
+
+        expect(invoice_item_1.total_revenue).to eq(5)
+        expect(invoice_item_2.total_revenue).to eq(200)
+      end
+    end
   end
 end
