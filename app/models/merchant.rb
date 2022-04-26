@@ -42,8 +42,4 @@ class Merchant < ApplicationRecord
   def invoice_items_by_invoice(invoice_id)
     invoice_items.where(invoice_id: invoice_id)
   end
-
-  def total_revenue_to_dollars
-    "$" + (sprintf "%.2f", total_revenue.to_f/100).to_s
-  end
 end
