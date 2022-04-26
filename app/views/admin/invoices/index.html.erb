@@ -1,5 +1,5 @@
 <%= render 'header' %>
 
 <% @invoices.each do |invoice| %>
-<p>Invoice ID: <%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></p>
+  <p>Invoice ID: <%= link_to "#{invoice.id}", "/admin/invoices/#{invoice.id}" %></p>
 <% end %>

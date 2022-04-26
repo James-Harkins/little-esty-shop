@@ -2,8 +2,8 @@
 <p>Created at: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 <%= render 'form' %><hr>
-<h3>Items:</h3>
 
+<h3>Items:</h3>
 <% @invoice.items.each do |item| %>
   <div id="item-<%= item.id %>">
     <h4><%= item.name %></h4>
@@ -12,5 +12,6 @@
     <p>Status: <%= item.invoice_items.first.status %></p>
   </div>
 <% end %>
+
 <h3>Total Revenue: $<%= '%.2f' % (@invoice.total_revenue.to_f.round(2) / 100).round(2) %></h3>
 <h3>Revenue after Bulk Discounts: $<%= '%.2f' % (@invoice.bulk_discounted_revenue.to_f.round(2) / 100).round(2) %></h3>

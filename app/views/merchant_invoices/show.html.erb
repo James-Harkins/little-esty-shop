@@ -1,23 +1,26 @@
-<h1>Invoice <%=@invoice.id%></h1><br>
+<h1>Invoice <%=@invoice.id%></h1>
 Invoice Status: <%= @invoice.status %><br>
 Created At: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %><br>
 Customer Name: <%= @invoice.customer_full_name %><br>
-Total Revenue: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).total_revenue.to_f/100).truncate(2) %>
-Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).discounted_revenue.to_f/100).truncate(2) %>
+Total Revenue: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).total_revenue.to_f/100).truncate(2) %><br>
+Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(@invoice.id).discounted_revenue.to_f/100).truncate(2) %><br>
+
 <% @invoice.invoice_items.each do |invoice_item|%>
-<div id="item-<%= invoice_item.id %>">
-  <% if invoice_item.belongs_to_merchant?(@merchant.id) %>
-    <h3>Invoice Item <%= invoice_item.id %></h3>
-    Quantity: <%=invoice_item.quantity %><br>
-    Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %><br>
-    <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
-      <%= form.label "Status" %>
-      <%= form.select(:status, options_for_select([['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], invoice_item.status)) %>
-      <%= form.submit "Update Item Status" %>
-    <% end %>
-    <% if invoice_item.applied_bulk_discount %>
-      <%= link_to "View Applied Bulk Discount", "/merchants/#{@merchant.id}/bulk_discounts/#{invoice_item.applied_bulk_discount.id}" %>
-    <% end %>
+  <div id="item-<%= invoice_item.id %>">
+    <% if invoice_item.belongs_to_merchant?(@merchant.id) %>
+      <h3>Invoice Item <%= invoice_item.id %></h3>
+      <p>Quantity: <%=invoice_item.quantity %></p><br>
+      <p>Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %></p><br>
+
+      <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
+        <%= form.label "Status" %>
+        <%= form.select(:status, options_for_select([['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], invoice_item.status)) %>
+        <%= form.submit "Update Item Status" %>
+      <% end %>
+
+      <% if invoice_item.applied_bulk_discount %>
+        <%= link_to "View Applied Bulk Discount", "/merchants/#{@merchant.id}/bulk_discounts/#{invoice_item.applied_bulk_discount.id}" %>
+      <% end %>
+    </div>
   <% end %>
-</div>
 <% end %>

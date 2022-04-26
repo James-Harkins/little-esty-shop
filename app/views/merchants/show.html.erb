@@ -1,26 +1,25 @@
 <h1><%= @merchant.name %></h1>
 <%= link_to "This Merchant's Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "This Merchant's Invoices", "/merchants/#{@merchant.id}/invoices" %>
-<br>
-
 <%= link_to "View Available Bulk Discounts", "/merchants/#{@merchant.id}/bulk_discounts" %>
+
 <h3> Top 5 Customers</h3>
-  <ol type="1">
-    <%  @merchant.customers.top_five.each do |customer| %>
-    <li>
-        <%= customer.first_name %>
-        <%= customer.last_name %>
-    </li>
-    <% end %>
-  </ol>
-<br>
+<ol type="1">
+  <%  @merchant.customers.top_five.each do |customer| %>
+  <li>
+      <%= customer.first_name %>
+      <%= customer.last_name %>
+  </li>
+  <% end %>
+</ol>
+
 <h3> Ready to Ship </h3>
-  <ol id="ready_to_ship" type="1">
-    <%  @merchant.invoice_items.ready_to_ship.each do |invoice_item| %>
-    <li>
-        <%= invoice_item.item.name %>
-        <%= link_to "#{invoice_item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice_id}" %>
-        <%= invoice_item.invoice_date.strftime("%A, %B %d, %Y")%>
-    </li>
-    <% end %>
-  </ol>
+<ol id="ready_to_ship" type="1">
+  <%  @merchant.invoice_items.ready_to_ship.each do |invoice_item| %>
+  <li>
+      <%= invoice_item.item.name %>
+      <%= link_to "#{invoice_item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{invoice_item.invoice_id}" %>
+      <%= invoice_item.invoice_date.strftime("%A, %B %d, %Y")%>
+  </li>
+  <% end %>
+</ol>

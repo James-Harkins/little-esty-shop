@@ -1,5 +1,6 @@
 <%= render "header" %>
 <%= render "link_bar" %>
+
 <h3>Top Customers: </h3>
 <% @customers.top_five.each do |customer| %>
   <div id="customer-<%= customer.id %>">
@@ -7,6 +8,7 @@
     <p>Successful transactions: <%= customer.transactions.count %></p>
   </div>
 <% end %>
+
 <div class="invoices">
   <h3>Incomplete Invoices:</h3>
   <% @invoices.incomplete.each do |invoice| %>
