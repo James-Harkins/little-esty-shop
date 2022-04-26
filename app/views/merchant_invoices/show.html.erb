@@ -8,11 +8,8 @@ Revenue after Bulk Discounts: $<%= "%.2f" % (@merchant.invoice_items_by_invoice(
 <div id="item-<%= invoice_item.id %>">
   <% if invoice_item.belongs_to_merchant(@merchant.id) %>
     <h3>Invoice Item <%= invoice_item.id %></h3>
-
-    Quantity: <%=invoice_item.quantity %>
-    <br>
-    Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %>
-    <br>
+    Quantity: <%=invoice_item.quantity %><br>
+    Unit Price: $<%= "%.2f" % (invoice_item.unit_price.to_f/100).truncate(2) %><br>
     <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{invoice_item.id}", method: :patch, local: true do |form| %>
       <%= form.label "Status" %>
       <%= form.select(:status, options_for_select([['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], invoice_item.status)) %>
