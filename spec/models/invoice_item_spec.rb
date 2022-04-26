@@ -77,6 +77,28 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   describe 'instance methods' do
+    describe '.invoice_date' do
+      it 'returns the created_at date of the associated invoice' do
+        date_1 = Date.parse("2002-05-01")
+        date_2 = Date.parse("2007-09-01")
+        customer_1 = Customer.create!(first_name: "Guthrie", last_name: "Govan")
+        invoice_1 = customer_1.invoices.create!(status: 1, created_at: date_1)
+        invoice_2 = customer_1.invoices.create!(status: 0, created_at: date_2)
+        merchant_1 = Merchant.create!(name: "Jim's Rare Guitars") 
+        item_1 = merchant_1.items.create!(name: "1959 Gibson Les Paul",
+                                        description: "Tobacco Burst Finish, Rosewood Fingerboard",
+                                        unit_price: 25000)
+        item_2 = merchant_1.items.create!(name: "1954 Fender Stratocaster",
+                                        description: "Seafoam Green Finish, Maple Fingerboard",
+                                        unit_price: 10000)
+        invoice_item_1 = InvoiceItem.create!(item: item_1, invoice: invoice_1, quantity: 1, unit_price: 5, status: 0)
+        invoice_item_2 = InvoiceItem.create!(item: item_2, invoice: invoice_2, quantity: 20, unit_price: 10, status: 0)
+
+        expect(invoice_item_1.invoice_date).to eq(date_1)
+        expect(invoice_item_2.invoice_date).to eq(date_2)
+      end
+    end
+
     describe '.applied_bulk_discount' do
       it 'returns the id of the bulk_discount applied to it' do
         merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
