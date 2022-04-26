@@ -13,4 +13,4 @@
   </div>
 <% end %>
 <h3>Total Revenue: $<%= '%.2f' % (@invoice.total_revenue.to_f.round(2) / 100).round(2) %></h3>
-<h3>Revenue after Discounts: $<%= '%.2f' % (@invoice.discounted_revenue.to_f.round(2) / 100).round(2) %></h3>
+<h3>Revenue after Bulk Discounts: $<%= '%.2f' % (@invoice.bulk_discounted_revenue.to_f.round(2) / 100).round(2) %></h3>

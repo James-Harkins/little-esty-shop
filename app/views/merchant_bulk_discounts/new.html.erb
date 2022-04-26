@@ -1,4 +1,4 @@
-<%= form_with url: "/merchants/#{@merchant.id}/discounts", method: :post, local: true do |form| %>
+<%= form_with url: "/merchants/#{@merchant.id}/bulk_discounts", method: :post, local: true do |form| %>
   <%= form.label :percentage %>
   <%= form.number_field :percentage %>
 

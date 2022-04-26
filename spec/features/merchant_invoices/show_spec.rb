@@ -223,8 +223,8 @@ RSpec.describe 'the merchant invoice show page' do
         @invoice_item_13 = InvoiceItem.create!(item: @item_8, invoice: @invoice_2, quantity: 10000, unit_price: 20, status: 0)
         @invoice_item_14 = InvoiceItem.create!(item: @item_11, invoice: @invoice_1, quantity: 10000, unit_price: 20, status: 0)
         @invoice_item_15 = InvoiceItem.create!(item: @item_12, invoice: @invoice_1, quantity: 10000, unit_price: 20, status: 0)
-        @discount_1 = @merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-        @discount_2 = @merchant_1.discounts.create!(percentage: 40, quantity_threshold: 30)
+        @bulk_discount_1 = @merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+        @bulk_discount_2 = @merchant_1.bulk_discounts.create!(percentage: 40, quantity_threshold: 30)
 
         visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
       end
@@ -233,8 +233,8 @@ RSpec.describe 'the merchant invoice show page' do
         expect(page).to have_content("Total Revenue: $14.40")
       end
 
-      it 'i see the discounted revenue for the invoice' do
-        expect(page).to have_content("Revenue after Discounts: $12.00")
+      it 'i see the bulk_discounted revenue for the invoice' do
+        expect(page).to have_content("Revenue after Bulk Discounts: $12.00")
       end
 
       it 'next to each invoice_item, i see a link to the show page for the bulk discount that was applied to it' do
@@ -260,7 +260,7 @@ RSpec.describe 'the merchant invoice show page' do
           click_link("View Applied Bulk Discount")
         end
 
-        expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_2.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bulk_discount_2.id}")
 
         visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
@@ -268,7 +268,7 @@ RSpec.describe 'the merchant invoice show page' do
           click_link("View Applied Bulk Discount")
         end
 
-        expect(current_path).to eq("/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}")
+        expect(current_path).to eq("/merchants/#{@merchant_1.id}/bulk_discounts/#{@bulk_discount_1.id}")
       end
     end
   end

@@ -262,13 +262,13 @@ RSpec.describe 'merchant dashboard page' do
     end
   end
 
-  it 'i see a link to view all my discounts' do
+  it 'i see a link to view all my bulk discounts' do
     merchant = Merchant.create(name: "Braum's")
 
     visit "/merchants/#{merchant.id}/dashboard"
 
-    click_link "View Available Discounts"
+    click_link "View Available Bulk Discounts"
 
-    expect(current_path).to eq("/merchants/#{merchant.id}/discounts")
+    expect(current_path).to eq("/merchants/#{merchant.id}/bulk_discounts")
   end
 end

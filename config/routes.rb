@@ -27,13 +27,13 @@ Rails.application.routes.draw do
     patch '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#update'
     delete '/invoice_items/:invoice_item_id', to: 'merchant_invoice_items#destroy'
 
-    get '/discounts', to: 'merchant_discounts#index'
-    post '/discounts', to: 'merchant_discounts#create'
-    get '/discounts/new', to: 'merchant_discounts#new'
-    get '/discounts/:id', to: 'merchant_discounts#show'
-    get '/discounts/:id/edit', to: 'merchant_discounts#edit'
-    patch '/discounts/:id', to: 'merchant_discounts#update'
-    delete 'discounts/:id', to: 'merchant_discounts#destroy'
+    get '/bulk_discounts', to: 'merchant_bulk_discounts#index'
+    post '/bulk_discounts', to: 'merchant_bulk_discounts#create'
+    get '/bulk_discounts/new', to: 'merchant_bulk_discounts#new'
+    get '/bulk_discounts/:id', to: 'merchant_bulk_discounts#show'
+    get '/bulk_discounts/:id/edit', to: 'merchant_bulk_discounts#edit'
+    patch '/bulk_discounts/:id', to: 'merchant_bulk_discounts#update'
+    delete 'bulk_discounts/:id', to: 'merchant_bulk_discounts#destroy'
   end
 
   get '/merchants/:id/dashboard', to: 'merchants#show'

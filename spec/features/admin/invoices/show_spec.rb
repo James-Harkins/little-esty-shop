@@ -138,8 +138,8 @@ RSpec.describe "Admin Invoices Show" do
       @invoice_item_11 = InvoiceItem.create!(item: @item_5, invoice: @invoice_2, quantity: 10000, unit_price: 25, status: 0)
       @invoice_item_12 = InvoiceItem.create!(item: @item_7, invoice: @invoice_2, quantity: 10000, unit_price: 50, status: 0)
       @invoice_item_13 = InvoiceItem.create!(item: @item_8, invoice: @invoice_2, quantity: 10000, unit_price: 20, status: 0)
-      @discount_1 = @merchant_1.discounts.create!(percentage: 20, quantity_threshold: 20)
-      @discount_2 = @merchant_2.discounts.create!(percentage: 40, quantity_threshold: 30)
+      @bulk_discount_1 = @merchant_1.bulk_discounts.create!(percentage: 20, quantity_threshold: 20)
+      @bulk_discount_2 = @merchant_2.bulk_discounts.create!(percentage: 40, quantity_threshold: 30)
 
       visit "/admin/invoices/#{@invoice_1.id}"
     end
@@ -148,8 +148,8 @@ RSpec.describe "Admin Invoices Show" do
       expect(page).to have_content("Total Revenue: $25.60")
     end
 
-    it 'displays the invoices discounted revenue' do
-      expect(page).to have_content("Revenue after Discounts: $18.83")
+    it 'displays the invoices bulk-discounted revenue' do
+      expect(page).to have_content("Revenue after Bulk Discounts: $18.83")
     end
   end
 end
