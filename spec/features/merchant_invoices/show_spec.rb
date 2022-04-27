@@ -77,7 +77,7 @@ RSpec.describe 'the merchant invoice show page' do
     invoice_item_2 = item2.invoice_items.create(invoice_id:invoice_1.id, quantity:222, unit_price: 1000)
     visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
 
-    expect(page).to_not have_content("222")
+    expect(page).to_not have_content("Quantity: 222")
     expect(page).to_not have_content("3499")
     expect(page).to_not have_content("Polearm")
   end
