@@ -87,6 +87,28 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_select(:status, selected: 'Cancelled')
   end
 
+  it 'if the user updates the invoice status to completed, then the discount percentage should be stored on the invoice_item' do
+    walmart = Merchant.create!(name: "Wal-Mart")
+    bob = Customer.create!(first_name: "Bob", last_name: "Benson")
+    item_1 = walmart.items.create!(name: "pickle", description: "sour cucumber", unit_price: 300)
+    item_2 = walmart.items.create!(name: "eraser", description: "rubber bit", unit_price: 200)
+    invoice_1 = bob.invoices.create!(status: 0, created_at: '05 Apr 2022 00:53:36 UTC +00:00')
+    invoice_item_1 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_1.id, quantity: 6, status: 1, unit_price: 295)
+    invoice_item_2 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_2.id, quantity: 2, status: 0, unit_price: 215)
+    bulk_discount_1 = walmart.bulk_discounts.create!(percentage: 20, quantity_threshold: 5)
+
+    expect(invoice_item_1.discount_percentage).to eq(100)
+    expect(invoice_item_2.discount_percentage).to eq(100)
+
+    visit "/admin/invoices/#{invoice_1.id}"
+
+    select 'Completed', :from => :status
+    click_button("Update Status")
+
+    expect(invoice_1.invoice_items.first.discount_percentage).to eq(80)
+    expect(invoice_1.invoice_items.second.discount_percentage).to eq(100)
+  end
+
   describe 'bulk discounts' do
     before :each do
       @merchant_1 = Merchant.create!(name: "Jim's Rare Guitars")
