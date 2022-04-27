@@ -99,7 +99,7 @@ RSpec.describe Merchant, type: :model do
           invoice_item_5 = InvoiceItem.create!(item: item_5, invoice: invoice_1, quantity: 35, unit_price: item_5.unit_price, status: 0)
           invoice_item_5 = InvoiceItem.create!(item: item_4, invoice: invoice_3, quantity: 35, unit_price: item_5.unit_price, status: 0)
 
-          expect(merchant_1.distinct_invoices).to eq([invoice_1, invoice_2])
+          expect(merchant_1.distinct_invoices.order(:id)).to eq([invoice_1, invoice_2])
           expect(merchant_1.distinct_invoices.length).to eq(2)
         end
       end
