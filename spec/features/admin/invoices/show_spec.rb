@@ -105,8 +105,8 @@ RSpec.describe "Admin Invoices Show" do
     select 'Completed', :from => :status
     click_button("Update Status")
 
-    expect(invoice_item_1.discount_percentage).to eq(80)
-    expect(invoice_item_2.discount_percentage).to eq(100)
+    expect(invoice_1.invoice_items.first.discount_percentage).to eq(80)
+    expect(invoice_1.invoice_items.second.discount_percentage).to eq(100)
   end
 
   describe 'bulk discounts' do
